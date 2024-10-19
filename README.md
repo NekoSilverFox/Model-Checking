@@ -51,7 +51,7 @@
 > 多值函数（英语：multivalued function, multifunction）为一数学名词，是一种二元关系。其中，定义域
 > X 中的每一个元素都对应陪域 Y 中的**至少**一个元素。
 >
-> ![img](doc/img/200px-Multivalued_function.svg.svg)
+> ![img](doc/img/200px-Multivalued_function.svg.png)
 
 **执行路径 ρ**：表示系统的状态序列，即系统随时间的演化
 
@@ -63,7 +63,7 @@
 
 **🌰 例子 🌰**
 
-![img](doc/img/300px-KripkeStructureExample.svg.svg)
+![img](doc/img/300px-KripkeStructureExample.svg.png)
 
 设原子命题集合 $AP ={p, q}$。 p和q可以模拟任意可以由克里普克结构建模的系统中的布尔命题。
 
@@ -507,7 +507,7 @@ SPIN 使用 **PROMELA**（**Pro**cess **Me**ta **La**nguage）来描述系统的
 
 ```
 byte i = 255;
-i++; // i 的值会从 255 变成 0
+i++; // i 的值会从 255 变成 0，当然也可能会导致进程阻塞
 ```
 
 
@@ -837,6 +837,38 @@ active proctype Р() {
 ```
 
 进程 P 会在检查到条件时阻塞，并等待.... 直到进程 Q 更改变量 i，然后两个进程都将**成功**终止！
+
+---
+
+**🌰 示例 4：**溢出问题
+
+```
+byte i = 0;
+
+active proctype Q() {
+  do
+  :: i++;
+  od
+}
+```
+
+在上述程序中，**`i++` 没有保护条件**，也就是 `while` 循环没有退出条件。**当变量 i 达到 byte 类型的范围限制 255 后，Q 进程将被阻塞**，这个循环也永远不会退出！！！
+
+---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
